@@ -1,0 +1,15 @@
+Pages:
+
+Home 
+Login
+- Json file for each user to track customisaiton
+Register
+- To local sqllite db through node backend
+Game Page
+- Streaks every day for cat
+- Costomise Cat
+- Pet, Feed
+- ? Chat to the cat
+- ? Cat react based on mood recent mood list
+Mood Log Page
+- Fourm that stores data to seperate db
