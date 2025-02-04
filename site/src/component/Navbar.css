@@ -13,11 +13,42 @@
 }
 
 .nhsuk-navbar__link {
-  color: white;
+  color: #005bbb;
   text-decoration: none;
   font-size: 16px;
   padding: 10px;
   margin-right: 20px;
   opacity: 1;
   transition: color 0.3s ease;
+}
+
+/* Style the dropdown button */
+.nhsuk-navbar__link--dropdown {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* Style for the dropdown menu */
+.nhsuk-navbar__dropdown-menu {
+  position: absolute;
+  top: 100%;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  padding: 10px 0;
+}
+
+/* Style for dropdown items */
+.nhsuk-navbar__dropdown-item {
+  display: block;
+  padding: 10px 20px;
+  color: black;
+  text-decoration: none;
+}
+
+.nhsuk-navbar__dropdown-item:hover {
+  background-color: #f4f4f4;
 }

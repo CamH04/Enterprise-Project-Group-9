@@ -2,29 +2,27 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
-const Login = () => {
+const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/login', { username, password });
-      localStorage.setItem('token', response.data.token);
-      navigate('/profile');
+      await axios.post('http://localhost:5000/register', { username, password });
+      navigate('/login');
     } catch (err) {
-      setError('Login failed');
+      setError('Registration failed');
     }
   };
 
   return (
-    <div  className="nhsuk-container">
-      <h2>Login</h2>
+    <div>
+      <h2>Register</h2>
       {error && <p>{error}</p>}
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleRegister}>
         <input
           type="text"
           placeholder="Username"
@@ -39,10 +37,10 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" className="nhsuk-button">Login</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
