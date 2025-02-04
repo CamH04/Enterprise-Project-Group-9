@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <p>&copy;Meoww Yeahh Software All rights reserved.</p>
+        <p>&copy;M-Y Software All rights reserved.</p>
           <img  src={LOGO} height="50" width="100" alt="fireSpot"/>
       </div>
     </footer>
