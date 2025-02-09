@@ -12,13 +12,12 @@ const Navbar = () => {
   return (
     <nav className="nhsuk-navbar nhsuk-navbar--default nhsuk-navbar--sticky">
       <div className="nhsuk-navbar__menu">
-        <Link to="/" className="nhsuk-navbar__link">NHS Calm App</Link>
+        <Link to="/" className="nhsuk-navbar__link">Mood Tracker</Link>
 
         <div className="nhsuk-navbar__dropdown">
           <button onClick={toggleProfileDropdown} className="nhsuk-navbar__link nhsuk-navbar__link--dropdown">
             Profile
           </button>
-
           {isProfileDropdownOpen && (
             <div className="nhsuk-navbar__dropdown-menu">
             <Link to="/profile" className="nhsuk-navbar__dropdown-item">Profile</Link>

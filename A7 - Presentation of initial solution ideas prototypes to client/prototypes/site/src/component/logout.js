@@ -11,7 +11,7 @@ const Logout = () => {
 
   return (
     <div className="nhsuk-container">
-      <button className="nhsuk-button nhsapp-button nhsapp-button--secondary" onClick={handleLogout}>Log Out</button>
+      <button className="nhsuk-button nhsapp-button nhsapp-button--secondary"  data-module="nhsuk-button" onClick={handleLogout}>Log Out</button>
     </div>
   );
 };

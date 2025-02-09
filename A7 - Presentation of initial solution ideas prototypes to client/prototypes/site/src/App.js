@@ -6,6 +6,7 @@ import Register from './component/register.js';
 import Profile from './component/profile.js';
 import Footer from './component/footer.js';
 import Logout from './component/logout.js';
+import MoodTracker from './component/mood.js';
 
 function App() {
   return (
@@ -13,11 +14,12 @@ function App() {
       <Navbar />
       <div className="nhsuk-container">
         <Routes>
-          <Route path="/"/>
+          <Route path="/"element={<MoodTracker />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<Logout />} />
+
         </Routes>
       </div>
       <Footer />
