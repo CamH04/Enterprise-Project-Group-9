@@ -1,0 +1,12 @@
+Our idea has to fall into the guidelines of a good tool but not a substitute for mental health support. We must assist the NHS not take it over.
+App has to be reliable / robust and effective
+Must be interactible by the whole of Gateshead (people who can read / write, hard of hearing / deaf , those who can speak english)
+Must be accessible by all over the age of 16
+NHS Gateshead mental health design colours NHS blue, purple, teal (https://www.gatesheadhealth.nhs.uk/services/mental-health/)
+Refer to Becky to check if the use of our software is appropriate
+
+Suggestions:
+Reminder system / daily check in
+Reccomend articles based on keywords, personolised article reccomendation (in article link to external recources)
+Lead to help in crisis
+To make the app more self lead insted of linking with GP
