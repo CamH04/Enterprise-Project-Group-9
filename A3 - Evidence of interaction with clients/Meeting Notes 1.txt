@@ -10,3 +10,8 @@ Reminder system / daily check in
 Reccomend articles based on keywords, personolised article reccomendation (in article link to external recources)
 Lead to help in crisis
 To make the app more self lead insted of linking with GP
+audio alternative
+try to add pictures as a resume for written stuff
+translation options??? (need to ask about the vast majority of languages to use)
+to respond to the educational part they want us to add, maybe we can do a library that directs to nhs official pages
+they want something durable, I think we can solve this automatically if our work is original enough
