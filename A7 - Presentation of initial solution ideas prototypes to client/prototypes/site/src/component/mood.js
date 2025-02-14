@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const MoodTracker = () => {
-  const [mood, setMood] = useState('Neutral'); // Default to Neutral
+  const [mood, setMood] = useState('Neutral');
   const [keywords, setKeywords] = useState('');
   const [notes, setNotes] = useState('');
-  const [visibleToGps, setVisibleToGps] = useState(false); // Default is false
+  const [visibleToGps, setVisibleToGps] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -20,6 +20,12 @@ const MoodTracker = () => {
 
   const handleSaveMood = async (e) => {
     e.preventDefault();
+    const formattedKeywords = keywords
+      .split(/[,\s]+/)
+      .map((keyword) => keyword.trim())
+      .filter((keyword) => keyword !== '')
+      .join(',');
+
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -28,7 +34,7 @@ const MoodTracker = () => {
       }
 
       const response = await axios.post('http://localhost:5000/saveMood',
-        { mood, keywords, notes, visible_to_gps: visibleToGps },
+        { mood, keywords: formattedKeywords, notes, visible_to_gps: visibleToGps },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setSuccess('Mood saved successfully!');
@@ -57,7 +63,7 @@ const MoodTracker = () => {
           <span>{mood}</span>
         </div>
         <div>
-          <label htmlFor="keywords">Keywords: </label>
+          <label htmlFor="keywords">Keywords (separate with commas): </label>
           <input
             id="keywords"
             type="text"
