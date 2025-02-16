@@ -143,45 +143,62 @@ app.post('/saveMood', (req, res) => {
   });
 });
 
-//=========================== Articles ==========================
+/*=========================== Articles ==========================
+ *    Description of how a article becomes reccomended:
+ *    1. - Keywords are served to backend
+ *    2. - backend looks through articles and ranks articles by
+ *    counting how many keyword matches occur in its content , ignoring stop words
+ *    3. - sort the articles based on the match count
+ *    4. - return top article
+*/
+const stopWords = [
+  'a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'so', 'yet', 'on', 'at', 'by', 'with', 'as', 'from', 'of', 'to', 'in', 'that', 'which', 'who', 'whom', 'whose', 'this', 'these', 'those', 'it', 'its', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'will', 'would', 'shall', 'should', 'can', 'could', 'may', 'might', 'must', 'cannot', 'cannot'
+];
+function filterStopWords(words) {
+  return words.filter(word => !stopWords.includes(word));
+}
 app.get('/recommendedArticles', (req, res) => {
   const { keywords } = req.query;
   if (!keywords) {
     console.log('No keywords provided');
     return res.status(400).json({ error: 'No keywords provided' });
   }
-  const keywordArray = keywords.split(',').map((keyword) => keyword.trim().toLowerCase());
+  const keywordArray = filterStopWords(keywords.split(',').map((keyword) => keyword.trim().toLowerCase()));
   console.log('Received keywords for article recommendation:', keywordArray);
-
   fs.readdir(articlesDirectory, (err, files) => {
     if (err) {
       console.log('Error reading articles directory:', err);
       return res.status(500).json({ error: 'Failed to read articles directory' });
     }
-    let recommendedArticles = [];
+    let articleScores = [];
     files.forEach((file) => {
       const filePath = path.join(articlesDirectory, file);
       const fileContent = fs.readFileSync(filePath, 'utf-8').toLowerCase();
-      const articleMatch = keywordArray.some((keyword) => fileContent.includes(keyword));
-      if (articleMatch) {
-        recommendedArticles.push({
+      const contentWords = filterStopWords(fileContent.split(/\W+/));
+      let matchCount = 0;
+      keywordArray.forEach((keyword) => {
+        if (contentWords.includes(keyword)) {
+          matchCount++;
+        }
+      });
+      if (matchCount > 0) {
+        articleScores.push({
           title: file.replace('.txt', ''),
           content: fileContent,
+          matchCount,
         });
       }
     });
-
-    if (recommendedArticles.length > 0) {
-      console.log('Articles recommended:', recommendedArticles);
-      res.json({ recommendedArticles });
+    const mostRelevantArticle = articleScores.sort((a, b) => b.matchCount - a.matchCount)[0];
+    if (mostRelevantArticle) {
+      //console.log('Most relevant article recommended:', mostRelevantArticle);
+      res.json({ recommendedArticles: [mostRelevantArticle] });
     } else {
       console.log('No articles matched the keywords');
       res.json({ recommendedArticles: [] });
     }
   });
 });
-
-
 //=========================== Server ==========================
 const PORT = 5000;
 app.listen(PORT, () => {
