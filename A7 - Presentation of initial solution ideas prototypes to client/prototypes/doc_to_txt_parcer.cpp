@@ -54,7 +54,7 @@ string ReadDocxFile(const string& DocxFile) {
     return ExtractTextFromXML(Ss.str());
 }
 
-int main() {
+void SingleFile(){
     string inp;
     cin >> inp;
     string DocxFile = inp + ".docx";
@@ -65,5 +65,9 @@ int main() {
     } else {
         cout << "No text extracted from the DOCX file" << endl;
     }
+}
+
+int main() {
+    SingleFile();
     return 0;
 }
