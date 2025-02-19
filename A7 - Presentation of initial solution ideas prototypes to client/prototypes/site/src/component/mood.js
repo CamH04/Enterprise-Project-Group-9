@@ -5,7 +5,6 @@ const MoodTracker = () => {
   const [mood, setMood] = useState('Neutral');
   const [keywords, setKeywords] = useState('');
   const [notes, setNotes] = useState('');
-  const [visibleToGps, setVisibleToGps] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -34,7 +33,7 @@ const MoodTracker = () => {
       }
 
       const response = await axios.post('http://localhost:5000/saveMood',
-        { mood, keywords: formattedKeywords, notes, visible_to_gps: visibleToGps },
+        { mood, keywords: formattedKeywords, notes },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setSuccess('Mood saved successfully!');
@@ -84,17 +83,6 @@ const MoodTracker = () => {
             className="nhsuk-textarea"
             required
           />
-        </div>
-        <div>
-          <label htmlFor="visibleToGps">
-            <input
-              id="visibleToGps"
-              type="checkbox"
-              checked={visibleToGps}
-              onChange={(e) => setVisibleToGps(e.target.checked)}
-            />
-            Share this information to your GP
-          </label>
         </div>
         <button type="submit" className="nhsuk-button">Save Mood</button>
       </form>

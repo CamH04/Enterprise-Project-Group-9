@@ -1,0 +1,22 @@
+.article-container {
+  margin-bottom: 20px;
+}
+
+.article-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+button {
+  background-color: #0071ce;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #005fa3;
+}

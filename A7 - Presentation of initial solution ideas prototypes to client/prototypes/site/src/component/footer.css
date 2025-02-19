@@ -6,15 +6,19 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.nhsuk-container {
+  flex-grow: 1;
 }
 
 .footer {
-  background-color: #333;
+  background-color: #313c4a;
   color: #fff;
   text-align: center;
   padding: 20px 0;
-  margin-top: 35%;
+  width: 100%;
 }
 
 .footer-content {

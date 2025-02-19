@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './recc.css';
+
 
 const RecommendedArticles = () => {
   const [recommendedArticles, setRecommendedArticles] = useState([]);
@@ -54,6 +56,18 @@ const RecommendedArticles = () => {
     fetchRecommendedArticles();
   }, [navigate]);
 
+  const handleExpandClick = (index) => {
+    const updatedArticles = [...recommendedArticles];
+    updatedArticles[index].expanded = !updatedArticles[index].expanded;
+    setRecommendedArticles(updatedArticles);
+  };
+
+  // Function to format the text with new lines or paragraph breaks
+  const formatContent = (content) => {
+    // Replace newlines with <br /> for better text formatting
+    return content.replace(/\n/g, '<br />');
+  };
+
   if (loading) return <div>Loading recommended articles...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -68,7 +82,16 @@ const RecommendedArticles = () => {
             <div key={index} className="article-container">
               <h3>{article.title}</h3>
               <div className="article-content">
-                <p>{article.content}</p>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: article.expanded
+                      ? formatContent(article.content)
+                      : formatContent(article.content.substring(0, 200) + '...'),
+                  }}
+                />
+                <button onClick={() => handleExpandClick(index)}>
+                  {article.expanded ? 'Read Less' : 'Read More'}
+                </button>
               </div>
             </div>
           ))}

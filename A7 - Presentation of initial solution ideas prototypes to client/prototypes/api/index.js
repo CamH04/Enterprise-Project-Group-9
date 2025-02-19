@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 db.serialize(() => {
   db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)");
-  db.run("CREATE TABLE IF NOT EXISTS user_mood (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, mood TEXT, keywords TEXT, notes TEXT, visible_to_gps BOOLEAN, FOREIGN KEY(user_id) REFERENCES users(id))");
+  db.run("CREATE TABLE IF NOT EXISTS user_mood (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, mood TEXT, keywords TEXT, notes TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))");
 });
 //=========================== Users ==========================
 app.post('/register', (req, res) => {
@@ -97,19 +97,21 @@ app.get('/userMoods', (req, res) => {
     }
     const userId = decoded.id;
     console.log('User ID:', userId);
-    db.all("SELECT * FROM user_mood WHERE user_id = ?", [userId], (err, rows) => {
+    db.all("SELECT id, mood, keywords, notes, timestamp FROM user_mood WHERE user_id = ?", [userId], (err, rows) => {
       if (err) {
         console.log('Error fetching moods:', err);
         return res.status(500).json({ error: 'Failed to retrieve mood data' });
       }
       console.log('Moods retrieved:', rows.length);
+      console.log('===========================================');
       res.json({ moods: rows });
     });
   });
 });
 
+
 app.post('/saveMood', (req, res) => {
-  const { mood, keywords, notes, visible_to_gps } = req.body;
+  const { mood, keywords, notes } = req.body;
   const token = req.headers['authorization'];
   if (!token) {
     console.log('No token provided');
@@ -131,8 +133,8 @@ app.post('/saveMood', (req, res) => {
     }
     const userId = decoded.id;
     console.log('Saving mood for user ID:', userId);
-    const stmt = db.prepare("INSERT INTO user_mood (user_id, mood, keywords, notes, visible_to_gps) VALUES (?, ?, ?, ?, ?)");
-    stmt.run(userId, mood, keywords, notes, visible_to_gps, function (err) {
+    const stmt = db.prepare("INSERT INTO user_mood (user_id, mood, keywords, notes) VALUES (?, ?, ?, ?)");
+    stmt.run(userId, mood, keywords, notes, function (err) {
       if (err) {
         console.log('Error saving mood data:', err);
         return res.status(500).json({ error: 'Failed to save mood data' });
@@ -143,20 +145,22 @@ app.post('/saveMood', (req, res) => {
   });
 });
 
+
 /*=========================== Articles ==========================
- *    Description of how a article becomes reccomended:
+ *    Description of how a article becomes recommended:
  *    1. - Keywords are served to backend
- *    2. - backend looks through articles and ranks articles by
- *    counting how many keyword matches occur in its content , ignoring stop words
- *    3. - sort the articles based on the match count
- *    4. - return top article
+ *    2. - Backend looks through articles and ranks articles by
+ *    counting how many keyword matches occur in its content, ignoring stop words
+ *    3. - Sort the articles based on the match count
+ *    4. - Return top article
 */
 const stopWords = [
-  'a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'so', 'yet', 'on', 'at', 'by', 'with', 'as', 'from', 'of', 'to', 'in', 'that', 'which', 'who', 'whom', 'whose', 'this', 'these', 'those', 'it', 'its', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'will', 'would', 'shall', 'should', 'can', 'could', 'may', 'might', 'must', 'cannot', 'cannot'
+  'a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'so', 'yet', 'on', 'at', 'by', 'with', 'as', 'from', 'of', 'to', 'in', 'that', 'which', 'who', 'whom', 'whose', 'this', 'these', 'those', 'it', 'its', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'will', 'would', 'shall', 'should', 'can', 'could', 'may', 'might', 'must', 'cannot', 'cannot' , 'i', 'I' , 'want' , 'Want'
 ];
 function filterStopWords(words) {
   return words.filter(word => !stopWords.includes(word));
 }
+
 app.get('/recommendedArticles', (req, res) => {
   const { keywords } = req.query;
   if (!keywords) {
@@ -191,7 +195,6 @@ app.get('/recommendedArticles', (req, res) => {
     });
     const mostRelevantArticle = articleScores.sort((a, b) => b.matchCount - a.matchCount)[0];
     if (mostRelevantArticle) {
-      //console.log('Most relevant article recommended:', mostRelevantArticle);
       res.json({ recommendedArticles: [mostRelevantArticle] });
     } else {
       console.log('No articles matched the keywords');

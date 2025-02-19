@@ -12,22 +12,21 @@ const Navbar = () => {
   return (
     <nav className="nhsuk-navbar nhsuk-navbar--default nhsuk-navbar--sticky">
       <div className="nhsuk-navbar__menu">
-        <Link to="/" className="nhsuk-navbar__link">Mood Tracker</Link>
-
         <div className="nhsuk-navbar__dropdown">
           <button onClick={toggleProfileDropdown} className="nhsuk-navbar__link nhsuk-navbar__link--dropdown">
             Profile
           </button>
           {isProfileDropdownOpen && (
             <div className="nhsuk-navbar__dropdown-menu">
-            <Link to="/profile" className="nhsuk-navbar__dropdown-item">Profile</Link>
+            <Link to="/profile" className=" nhsuk-navbar__dropdown-item">Profile</Link>
               <Link to="/login" className="nhsuk-navbar__dropdown-item">Login</Link>
               <Link to="/register" className="nhsuk-navbar__dropdown-item">Register</Link>
               <Link to="/logout" className="nhsuk-navbar__dropdown-item">Logout</Link>
             </div>
           )}
         </div>
-
+        <Link to="/" className="nhsuk-navbar__link">Mood Tracker</Link>
+        <Link to="/recommended-recources" className="nhsuk-navbar__link">Recommended Recources</Link>
       </div>
     </nav>
   );

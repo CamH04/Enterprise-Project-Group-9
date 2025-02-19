@@ -60,6 +60,11 @@ const Profile = () => {
   if (!profile) return <div>No profile data found.</div>;
   if (moods.length === 0) return <div>No mood submissions found.</div>;
 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString();
+  };
+
   return (
     <div className="nhsuk-container">
       <h2>Profile</h2>
@@ -70,7 +75,7 @@ const Profile = () => {
           <p><strong>Mood:</strong> {mood.mood}</p>
           <p><strong>Keywords:</strong> {mood.keywords}</p>
           <p><strong>Notes:</strong> {mood.notes}</p>
-          <p><strong>Visible to GPs:</strong> {mood.visible_to_gps ? 'Yes' : 'No'}</p>
+          <p><strong>Submitted on:</strong> {formatDate(mood.timestamp)}</p>
           <hr />
         </div>
       ))}
