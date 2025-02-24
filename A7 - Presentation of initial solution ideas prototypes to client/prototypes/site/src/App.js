@@ -7,6 +7,7 @@ import Profile from './component/profile.js';
 import Footer from './component/footer.js';
 import Logout from './component/logout.js';
 import MoodTracker from './component/mood.js';
+import Game from './component/game.js';
 import RecommendedArticles from './component/RecommendedArticles.js';
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/game" element={<Game />} />
           <Route path="/recommended-recources" element={<RecommendedArticles />} />
         </Routes>
       </div>
