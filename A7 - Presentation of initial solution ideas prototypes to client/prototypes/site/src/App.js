@@ -9,6 +9,7 @@ import Logout from './component/logout.js';
 import MoodTracker from './component/mood.js';
 import Game from './component/game.js';
 import RecommendedArticles from './component/RecommendedArticles.js';
+import WRAPForm from './component/wrap.js';
 
 function App() {
   useEffect(() => {
@@ -70,6 +71,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MoodTracker />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/wrap" element={<WRAPForm />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<Logout />} />

@@ -6,6 +6,7 @@ import RecommendedArticles from './RecommendedArticles';
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [moods, setMoods] = useState([]);
+  const [wrap, setWrap] = useState(null); // State to hold WRAP data
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -17,10 +18,11 @@ const Profile = () => {
       return;
     }
 
-    const fetchProfileAndMoods = async () => {
+    const fetchProfileAndMoodsAndWrap = async () => {
       try {
         if (!token) throw new Error('No token found in local storage');
 
+        // Fetch Profile
         const profileResponse = await axios.get('http://localhost:5000/profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -31,6 +33,7 @@ const Profile = () => {
           throw new Error('Failed to fetch profile');
         }
 
+        // Fetch Moods
         const moodsResponse = await axios.get('http://localhost:5000/userMoods', {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -39,6 +42,17 @@ const Profile = () => {
           setMoods(moodsResponse.data.moods);
         } else {
           throw new Error('Failed to fetch mood data');
+        }
+
+        // Fetch WRAP Data
+        const wrapResponse = await axios.get('http://localhost:5000/userWRAP', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (wrapResponse.status === 200) {
+          setWrap(wrapResponse.data.wrapData);
+        } else {
+          throw new Error('Failed to fetch WRAP data');
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -52,7 +66,7 @@ const Profile = () => {
       }
     };
 
-    fetchProfileAndMoods();
+    fetchProfileAndMoodsAndWrap();
   }, [navigate]);
 
   if (loading) return <div>Loading...</div>;
@@ -69,6 +83,7 @@ const Profile = () => {
     <div className="nhsuk-container">
       <h2>Profile</h2>
       <p>Username: {profile.username}</p>
+
       <h3>Your Mood Submissions:</h3>
       {moods.map((mood, index) => (
         <div key={index} className="mood-submission">
@@ -79,6 +94,25 @@ const Profile = () => {
           <hr />
         </div>
       ))}
+
+      {/* WRAP Data Section */}
+      {wrap ? (
+        <div>
+          <h3>Your Wellness Recovery Action Plan (WRAP):</h3>
+          <div>
+            <p><strong>Wellness Tools:</strong> {wrap.wellness_tools}</p>
+            <p><strong>Triggers:</strong> {wrap.triggers}</p>
+            <p><strong>Early Warning Signs:</strong> {wrap.early_warning_signs}</p>
+            <p><strong>When Things Break Down:</strong> {wrap.when_things_break_down}</p>
+            <p><strong>Crisis Plan:</strong> {wrap.crisis_plan}</p>
+            <p><strong>Last Updated on:</strong> {formatDate(wrap.timestamp)}</p>
+            <hr />
+          </div>
+        </div>
+      ) : (
+        <div>No WRAP data available.</div>
+      )}
+
       <RecommendedArticles />
     </div>
   );

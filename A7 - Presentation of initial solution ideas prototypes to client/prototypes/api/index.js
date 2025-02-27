@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 db.serialize(() => {
   db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)");
   db.run("CREATE TABLE IF NOT EXISTS user_mood (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, mood TEXT, keywords TEXT, notes TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))");
+  db.run(`   CREATE TABLE IF NOT EXISTS user_wrap (     id INTEGER PRIMARY KEY AUTOINCREMENT,     user_id INTEGER,     wellness_tools TEXT,     triggers TEXT,     early_warning_signs TEXT,     when_things_break_down TEXT,     crisis_plan TEXT,     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,     FOREIGN KEY(user_id) REFERENCES users(id)   ) `);
 });
 //=========================== Users ==========================
 app.post('/register', (req, res) => {
@@ -108,8 +109,6 @@ app.get('/userMoods', (req, res) => {
     });
   });
 });
-
-
 app.post('/saveMood', (req, res) => {
   const { mood, keywords, notes } = req.body;
   const token = req.headers['authorization'];
@@ -144,6 +143,77 @@ app.post('/saveMood', (req, res) => {
     });
   });
 });
+
+/*=========================== Wrap ==========================*/
+app.post('/saveWRAP', (req, res) => {
+  const { wellnessTools, triggers, earlyWarningSigns, whenThingsBreakDown, crisisPlan } = req.body;
+  const token = req.headers['authorization'];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Token required' });
+  }
+
+  const tokenWithoutBearer = token.split(' ')[1];
+  if (!tokenWithoutBearer) {
+    return res.status(401).json({ error: 'Token is malformed' });
+  }
+
+  jwt.verify(tokenWithoutBearer, JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ error: 'Invalid or expired token' });
+    }
+
+    const userId = decoded.id;
+    const stmt = db.prepare(`
+      INSERT INTO user_wrap (
+        user_id, wellness_tools, triggers, early_warning_signs, when_things_break_down, crisis_plan
+      ) VALUES (?, ?, ?, ?, ?, ?)
+    `);
+
+    stmt.run(userId, wellnessTools, triggers, earlyWarningSigns, whenThingsBreakDown, crisisPlan, function (err) {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to save WRAP data' });
+      }
+      res.status(201).json({ message: 'WRAP saved successfully' });
+    });
+  });
+});
+app.get('/userWRAP', (req, res) => {
+  const token = req.headers['authorization'];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Token required' });
+  }
+
+  const tokenWithoutBearer = token.split(' ')[1];
+  if (!tokenWithoutBearer) {
+    return res.status(401).json({ error: 'Token is malformed' });
+  }
+
+  jwt.verify(tokenWithoutBearer, JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ error: 'Invalid or expired token' });
+    }
+
+    const userId = decoded.id;
+    console.log('Fetching WRAP data for user ID:', userId);
+
+    db.get("SELECT * FROM user_wrap WHERE user_id = ?", [userId], (err, row) => {
+      if (err) {
+        console.log('Error fetching WRAP data:', err);
+        return res.status(500).json({ error: 'Failed to retrieve WRAP data' });
+      }
+
+      if (!row) {
+        return res.status(404).json({ error: 'No WRAP data found for this user' });
+      }
+
+      console.log('WRAP data retrieved:', row);
+      res.json({ wrapData: row });
+    });
+  });
+});
+
 
 
 /*=========================== Articles ==========================
