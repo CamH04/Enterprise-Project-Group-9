@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './button.css';
+import './register.css';
+
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -37,7 +40,7 @@ const Register = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Register</button>
+        <button className="nhsuk-button nhsuk-button--secondary" type="submit">Register</button>
       </form>
     </div>
   );

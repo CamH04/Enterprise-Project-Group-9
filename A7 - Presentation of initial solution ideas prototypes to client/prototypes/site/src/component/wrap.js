@@ -61,7 +61,7 @@ const WRAPForm = () => {
         </div>
 
         <div>
-          <label htmlFor="triggers">Triggers:</label>
+          <label htmlFor="triggers">Stressors:</label>
           <textarea
             id="triggers"
             placeholder="List the things that may trigger you (e.g., certain situations, events, people)"
@@ -97,7 +97,7 @@ const WRAPForm = () => {
         </div>
 
         <div>
-          <label htmlFor="crisisPlan">Crisis Plan:</label>
+          <label htmlFor="crisisPlan">Wellness Plan:</label>
           <textarea
             id="crisisPlan"
             placeholder="What to do in a crisis situation (e.g., call a support person, go to a safe space)"

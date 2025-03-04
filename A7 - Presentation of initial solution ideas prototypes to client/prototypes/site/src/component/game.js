@@ -6,10 +6,6 @@ const Game = () => {
   return (
     <div>
       <UnityWebGL />
-
-
-
-      <a href="http://localhost:4040/">Temp Link To Game</a>
     </div>
   );
 }
