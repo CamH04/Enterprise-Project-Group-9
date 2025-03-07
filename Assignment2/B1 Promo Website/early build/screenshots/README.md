@@ -19,5 +19,3 @@ This folder includes screenshots of the promotional website created by My Softwa
 **Development Platform:** Infinity.uk (Online Website Builder)
 
 ---
-
-These screenshots provide clear evidence of the content, design, and structure of the developed promotional website, meeting Task B1’s requirements.
