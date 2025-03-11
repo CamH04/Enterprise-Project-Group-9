@@ -1,0 +1,92 @@
+.tts-container {
+  margin-top: 40px;
+}
+
+.nhsuk-form-group {
+  margin-bottom: 15px;
+}
+
+.nhsuk-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.nhsuk-select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #005eb8;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
+
+.tts-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: #d8dde2;
+  border-radius: 4px;
+  outline: none;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.tts-slider:hover {
+  background: #b0b8c2;
+}
+
+.tts-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #005eb8;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.tts-slider::-webkit-slider-thumb:hover {
+  background: #003087;
+}
+
+.tts-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #005eb8;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.tts-slider::-moz-range-thumb:hover {
+  background: #003087;
+}
+
+.nhsuk-button {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #005eb8;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.nhsuk-button:hover {
+  background-color: #003087;
+}
+
+.nhsuk-button--secondary {
+  background-color: #768692;
+}
+
+.nhsuk-button--secondary:hover {
+  background-color: #4c6272;
+}

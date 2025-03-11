@@ -6,7 +6,7 @@ import RecommendedArticles from './RecommendedArticles';
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [moods, setMoods] = useState([]);
-  const [wrap, setWrap] = useState(null); // State to hold WRAP data
+  const [wrap, setWrap] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -43,8 +43,6 @@ const Profile = () => {
         } else {
           throw new Error('Failed to fetch mood data');
         }
-
-        // Fetch WRAP Data
         const wrapResponse = await axios.get('http://localhost:5000/userWRAP', {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -95,7 +93,6 @@ const Profile = () => {
         </div>
       ))}
 
-      {/* WRAP Data Section */}
       {wrap ? (
         <div>
           <h3>Your Wellness Recovery Action Plan (WRAP):</h3>
@@ -112,8 +109,6 @@ const Profile = () => {
       ) : (
         <div>No WRAP data available.</div>
       )}
-
-      <RecommendedArticles />
     </div>
   );
 };

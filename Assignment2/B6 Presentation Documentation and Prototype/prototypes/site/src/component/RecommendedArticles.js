@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './recc.css';
+import TextToSpeech from './TextToSpeech';
 
+import './recc.css';
 
 const RecommendedArticles = () => {
   const [recommendedArticles, setRecommendedArticles] = useState([]);
@@ -62,9 +63,7 @@ const RecommendedArticles = () => {
     setRecommendedArticles(updatedArticles);
   };
 
-  // Function to format the text with new lines or paragraph breaks
   const formatContent = (content) => {
-    // Replace newlines with <br /> for better text formatting
     return content.replace(/\n/g, '<br />');
   };
 
@@ -92,6 +91,7 @@ const RecommendedArticles = () => {
                 <button onClick={() => handleExpandClick(index)}>
                   {article.expanded ? 'Read Less' : 'Read More'}
                 </button>
+                <TextToSpeech text={article.content} />
               </div>
             </div>
           ))}
