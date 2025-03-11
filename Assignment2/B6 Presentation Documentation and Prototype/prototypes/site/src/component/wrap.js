@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+
 const WRAPForm = () => {
-  // State hooks for each WRAP section
   const [wellnessTools, setWellnessTools] = useState('');
   const [triggers, setTriggers] = useState('');
   const [earlyWarningSigns, setEarlyWarningSigns] = useState('');

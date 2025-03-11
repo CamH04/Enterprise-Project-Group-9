@@ -7,6 +7,8 @@ run command node index.js
 # Run Game Server
 run command node server.js
 
+(seperate repo for game build : https://github.com/CamH04/Enterprise-Raw-Game-Build)
+
 # Run Website
 - Note: for full website functionailty run api,game server as well as the website
 
