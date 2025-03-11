@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './wrap.css';
 
 
 const WRAPForm = () => {
@@ -10,8 +11,6 @@ const WRAPForm = () => {
   const [crisisPlan, setCrisisPlan] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
-  // Handle saving WRAP data
   const handleSaveWRAP = async (e) => {
     e.preventDefault();
 
@@ -55,7 +54,7 @@ const WRAPForm = () => {
             placeholder="Describe the tools you use to stay well (e.g., exercise, meditation, talking to a friend)"
             value={wellnessTools}
             onChange={(e) => setWellnessTools(e.target.value)}
-            className="nhsuk-textarea"
+            className="nhsuk-input"
             required
           />
         </div>
@@ -67,7 +66,7 @@ const WRAPForm = () => {
             placeholder="List the things that may trigger you (e.g., certain situations, events, people)"
             value={triggers}
             onChange={(e) => setTriggers(e.target.value)}
-            className="nhsuk-textarea"
+            className="nhsuk-input"
             required
           />
         </div>
@@ -79,7 +78,7 @@ const WRAPForm = () => {
             placeholder="Describe the signs that indicate you're starting to feel unwell (e.g., irritability, trouble sleeping)"
             value={earlyWarningSigns}
             onChange={(e) => setEarlyWarningSigns(e.target.value)}
-            className="nhsuk-textarea"
+            className="nhsuk-input"
             required
           />
         </div>
@@ -91,7 +90,7 @@ const WRAPForm = () => {
             placeholder="What to do when things feel like they're breaking down (e.g., ask for help, take a break)"
             value={whenThingsBreakDown}
             onChange={(e) => setWhenThingsBreakDown(e.target.value)}
-            className="nhsuk-textarea"
+            className="nhsuk-input"
             required
           />
         </div>
@@ -103,7 +102,7 @@ const WRAPForm = () => {
             placeholder="What to do in a crisis situation (e.g., call a support person, go to a safe space)"
             value={crisisPlan}
             onChange={(e) => setCrisisPlan(e.target.value)}
-            className="nhsuk-textarea"
+            className="nhsuk-input"
             required
           />
         </div>

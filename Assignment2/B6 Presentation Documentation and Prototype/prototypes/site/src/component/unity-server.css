@@ -2,3 +2,9 @@
     display: flex;
     justify-content: center;
 }
+.nhsuk-container {
+
+}
+*:disabled{
+    max-width: 600px;
+}

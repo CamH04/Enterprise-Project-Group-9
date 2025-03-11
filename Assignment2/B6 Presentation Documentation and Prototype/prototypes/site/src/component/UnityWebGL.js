@@ -8,7 +8,6 @@ const UnityWebGL = () => {
         src="http://localhost:4040"
         width="1000"
         height="800"
-        style={{ border: 'none' }}
       ></iframe>
     </div>
   );

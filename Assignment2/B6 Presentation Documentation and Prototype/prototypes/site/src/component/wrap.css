@@ -1,0 +1,74 @@
+.nhsuk-container {
+  margin: 0 auto;
+  padding: 20px;
+  background: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #005eb8;
+  text-align: center;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #212b32;
+}
+
+.nhsuk-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #aeb7bd;
+  border-radius: 4px;
+  background: white;
+  transition: border 0.3s ease-in-out;
+}
+
+.nhsuk-input:focus {
+  outline: none;
+  border-color: #005eb8;
+  box-shadow: 0 0 5px rgba(0, 94, 184, 0.5);
+}
+
+textarea.nhsuk-input {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.nhsuk-button {
+  display: inline-block;
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: #005eb8;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.nhsuk-button:hover {
+  background-color: #003b75;
+}
+
+.error {
+  color: #d4351c;
+  background: #f3e3e3;
+  padding: 10px;
+  border-left: 4px solid #d4351c;
+  margin-bottom: 15px;
+}
+
+.success {
+  color: #007f3b;
+  background: #eaf4ea;
+  padding: 10px;
+  border-left: 4px solid #007f3b;
+  margin-bottom: 15px;
+}

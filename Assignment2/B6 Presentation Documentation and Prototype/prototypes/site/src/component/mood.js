@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FaSadTear, FaFrown, FaMeh, FaSmile, FaLaugh } from 'react-icons/fa';
+import './mood.css';
 
 const MoodTracker = () => {
   const [mood, setMood] = useState('Neutral');
@@ -61,7 +62,7 @@ const MoodTracker = () => {
   };
 
   return (
-    <div className="nhsuk-container">
+    <div className="nhsuk-container margin-padd">
       <h2>Track Your Mood</h2>
       {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
@@ -108,7 +109,7 @@ const MoodTracker = () => {
             placeholder="Add your notes here"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            className="nhsuk-textarea"
+            className="nhsuk-input"
             required
           />
         </div>
