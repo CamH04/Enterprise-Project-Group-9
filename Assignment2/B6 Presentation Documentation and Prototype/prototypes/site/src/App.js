@@ -11,6 +11,7 @@ import Game from './component/game.js';
 import RecommendedArticles from './component/RecommendedArticles.js';
 import WRAPForm from './component/wrap.js';
 
+
 function App() {
   useEffect(() => {
     if (Notification.permission !== 'granted') {
@@ -67,7 +68,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="nhsuk-container"> {/* The content wrapper */}
+      <div className="nhsuk-container">
         <Routes>
           <Route path="/" element={<MoodTracker />} />
           <Route path="/login" element={<LoginPage />} />

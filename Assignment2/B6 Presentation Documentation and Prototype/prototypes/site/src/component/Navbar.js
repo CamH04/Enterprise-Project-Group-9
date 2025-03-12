@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import AudioPlayer from './AudioPlayer.js';
 
 const Navbar = () => {
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -53,6 +54,7 @@ const Navbar = () => {
         <Link to="/wrap" className="nhsuk-navbar__link">Action Plan</Link>
         <Link to="/game" className="nhsuk-navbar__link">Game</Link>
         <Link to="/recommended-recources" className="nhsuk-navbar__link">Recommended Recources</Link>
+        <AudioPlayer />
       </div>
     </nav>
   );
