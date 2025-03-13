@@ -4,66 +4,65 @@ import { useNavigate } from 'react-router-dom';
 import './button.css';
 import './login.css';
 
-const Login = () => {
+const ResetPassword = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleResetRequest = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/login', { username, password });
-      console.log('Login Response:', response.data);
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        navigate('/profile');
-      } else {
-        setError('Login failed: No token received');
-      }
+      const response = await axios.post('http://localhost:5000/reset-password', { username, password });
+      setMessage(response.data.message);
+      setError('');
     } catch (err) {
-      console.error('Login error:', err);
-      setError(err.response?.data?.error || 'Login failed: Invalid username or password');
+      setError(err.response?.data?.error || 'Error resetting password');
+      setMessage('');
     }
   };
 
   return (
     <div className="nhsuk-container nhsuk-form-group">
-      <h2>Login</h2>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleLogin}>
+      <h2>Reset Password</h2>
+
+      {message && <p style={{ color: 'green' }}>{message}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      <form onSubmit={handleResetRequest}>
         <label className="nhsuk-label" htmlFor="username">Username</label>
         <input
           type="text"
           id="username"
-          placeholder="Username"
+          placeholder="Enter your username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
         />
 
-        <label className="nhsuk-label" htmlFor="password">Password</label>
+        <label className="nhsuk-label" htmlFor="password">New Password</label>
         <input
           type="password"
           id="password"
-          placeholder="Password"
+          placeholder="Enter new password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
 
-        <button type="submit" className="nhsuk-button nhsuk-button--secondary">Login</button>
+        <button type="submit" className="nhsuk-button nhsuk-button--secondary">Reset Password</button>
       </form>
 
       <button
         className="nhsuk-button nhsuk-button--link"
-        onClick={() => navigate('/reset-password')}
+        onClick={() => navigate('/login')}
         style={{ marginTop: '10px', background: 'none', border: 'none', color: '#005eb8', cursor: 'pointer' }}
       >
-        Forgot password? Reset it
+        Back to Login
       </button>
     </div>
   );
 };
 
-export default Login;
+export default ResetPassword;

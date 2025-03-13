@@ -79,6 +79,25 @@ app.get('/profile', (req, res) => {
     res.json({ message: 'Welcome to your profile!', user: decoded });
   });
 });
+app.post('/reset-password', (req, res) => {
+  const { username, password } = req.body;
+  db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
+    if (err || !row) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    bcrypt.hash(password, 10, (err, hashedPassword) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error hashing password' });
+      }
+      db.run('UPDATE users SET password = ? WHERE username = ?', [hashedPassword, username], function(err) {
+        if (err) {
+          return res.status(500).json({ error: 'Failed to reset password' });
+        }
+        res.json({ message: 'Password reset successfully' });
+      });
+    });
+  });
+});
 //=========================== Moods ==========================
 app.get('/userMoods', (req, res) => {
   const token = req.headers['authorization'];
