@@ -11,7 +11,7 @@ import Game from './component/game.js';
 import RecommendedArticles from './component/RecommendedArticles.js';
 import WRAPForm from './component/wrap.js';
 import ResetPassword from './component/ResetPassword.js'
-
+import ApiDocumentation from './component/ApiDocumentation.js'
 
 function App() {
   useEffect(() => {
@@ -80,6 +80,7 @@ function App() {
           <Route path="/game" element={<Game />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/recommended-recources" element={<RecommendedArticles />} />
+          <Route path="/dev/api-docs" element={<ApiDocumentation />} />
         </Routes>
       </div>
       <Footer />
