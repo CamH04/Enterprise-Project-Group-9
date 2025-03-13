@@ -213,6 +213,47 @@ app.get('/userWRAP', (req, res) => {
     });
   });
 });
+app.put('/updateWRAP', (req, res) => {
+  const { wellnessTools, triggers, earlyWarningSigns, whenThingsBreakDown, crisisPlan } = req.body;
+  const token = req.headers['authorization'];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Token required' });
+  }
+
+  const tokenWithoutBearer = token.split(' ')[1];
+  if (!tokenWithoutBearer) {
+    return res.status(401).json({ error: 'Token is malformed' });
+  }
+
+  jwt.verify(tokenWithoutBearer, JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ error: 'Invalid or expired token' });
+    }
+
+    const userId = decoded.id;
+
+    db.run(
+      `UPDATE user_wrap
+       SET wellness_tools = ?, triggers = ?, early_warning_signs = ?,
+           when_things_break_down = ?, crisis_plan = ?, timestamp = CURRENT_TIMESTAMP
+       WHERE user_id = ?`,
+      [wellnessTools, triggers, earlyWarningSigns, whenThingsBreakDown, crisisPlan, userId],
+      function (err) {
+        if (err) {
+          console.log('Error updating WRAP data:', err);
+          return res.status(500).json({ error: 'Failed to update WRAP data' });
+        }
+
+        if (this.changes === 0) {
+          return res.status(404).json({ error: 'No WRAP data found for this user' });
+        }
+
+        res.status(200).json({ message: 'WRAP updated successfully' });
+      }
+    );
+  });
+});
 
 
 
