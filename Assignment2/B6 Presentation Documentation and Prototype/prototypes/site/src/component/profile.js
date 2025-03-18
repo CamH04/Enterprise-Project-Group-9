@@ -32,8 +32,6 @@ const Profile = () => {
         } else {
           throw new Error('Failed to fetch profile');
         }
-
-        // Fetch Moods
         const moodsResponse = await axios.get('http://localhost:5000/userMoods', {
           headers: { Authorization: `Bearer ${token}` },
         });

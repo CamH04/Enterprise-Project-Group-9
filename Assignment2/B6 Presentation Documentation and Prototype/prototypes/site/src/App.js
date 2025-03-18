@@ -12,6 +12,7 @@ import RecommendedArticles from './component/RecommendedArticles.js';
 import WRAPForm from './component/wrap.js';
 import ResetPassword from './component/ResetPassword.js'
 import ApiDocumentation from './component/ApiDocumentation.js'
+import Home from './component/Home.js'
 
 function App() {
   useEffect(() => {
@@ -71,6 +72,7 @@ function App() {
       <Navbar />
       <div className="nhsuk-container">
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/mood-tracker" element={<MoodTracker />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/wrap" element={<WRAPForm />} />

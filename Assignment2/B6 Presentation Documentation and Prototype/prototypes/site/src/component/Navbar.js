@@ -34,7 +34,7 @@ const Navbar = () => {
             c1.6,0,2.8,0.5,3.6,1.9h0v-1.6L32.6,42.9z M29.5,48.7c0-2-0.8-3.7-2.6-3.7c-2.1,0-2.8,1.9-2.8,3.7c0,1.6,0.8,3.6,2.6,3.6C28.7,52.3,29.5,50.7,29.5,48.7"/>
           <path fill="#231F20" d="M15.9,38.5H19v2.7h-3.1V38.5z M15.9,42.9H19v11.6h-3.1V42.9z"/>
           <path fill="#231F20" d="M0,38.5h4.4c4.9,0,9.2,1.7,9.2,8s-4.3,8-9.2,8H0V38.5z M3.2,52H5c2.7,0,5.3-2,5.3-5.5C10.3,43,7.7,41,5,41H3.2V52z"/>
-        </svg>
+      </svg>
       </div>
         <div className="nhsuk-navbar__dropdown">
           <button onClick={toggleProfileDropdown} className="nhsuk-navbar__link nhsuk-navbar__link--dropdown">
@@ -50,6 +50,7 @@ const Navbar = () => {
             </div>
           )}
         </div>
+        <Link to="/" className="nhsuk-navbar__link">Home</Link>
         <Link to="/mood-tracker" className="nhsuk-navbar__link">Mood Tracker</Link>
         <Link to="/wrap" className="nhsuk-navbar__link">Action Plan</Link>
         <Link to="/game" className="nhsuk-navbar__link">Game</Link>
