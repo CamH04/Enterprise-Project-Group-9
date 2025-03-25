@@ -4,13 +4,13 @@ import './TextToSpeech.css';
 const TextToSpeech = ({ text }) => {
   const [voices, setVoices] = useState([]);
   const [selectedVoice, setSelectedVoice] = useState(null);
-  const [speed, setSpeed] = useState(1); // Default speed
-  const [pitch, setPitch] = useState(1); // Default pitch
+  const [speed, setSpeed] = useState(1);
+  const [pitch, setPitch] = useState(1);
   const synth = window.speechSynthesis;
 
   useEffect(() => {
     const loadVoices = () => {
-      const availableVoices = synth.getVoices();
+      let availableVoices = synth.getVoices().filter(voice => voice.lang.startsWith('en'));
       setVoices(availableVoices);
       if (availableVoices.length > 0) {
         setSelectedVoice(availableVoices[0].name);
