@@ -1,8 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './button.css';
 import './login.css';
+import VoiceActivation from './VoiceActivation';
+
+const VoiceInput = ({ setInputValue }) => {
+  const [textInput, setTextInput] = useState('');
+  const { isListening, transcript, startListening, stopListening } = VoiceActivation({ continuous: true });
+
+  useEffect(() => {
+    setTextInput(transcript);
+    setInputValue(transcript);
+  }, [transcript, setInputValue]);
+
+  const startStopListening = () => {
+    isListening ? stopListening() : startListening();
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={textInput}
+        onChange={(e) => setTextInput(e.target.value)}
+        placeholder="Speak or type here..."
+      />
+      <button onClick={startStopListening}>
+        {isListening ? 'Stop Listening' : 'Start Listening'}
+      </button>
+    </div>
+  );
+};
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -33,15 +62,8 @@ const Login = () => {
       {error && <p>{error}</p>}
       <form onSubmit={handleLogin}>
         <label className="nhsuk-label" htmlFor="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-
+        <VoiceInput setInputValue={setUsername} />
+        
         <label className="nhsuk-label" htmlFor="password">Password</label>
         <input
           type="password"
