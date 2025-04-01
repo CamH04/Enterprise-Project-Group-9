@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './button.css';
 import './login.css';
+import './VoiceActivation.css'
 import VoiceActivation from './VoiceActivation';
 
 const VoiceInput = ({ setInputValue }) => {
@@ -10,30 +11,30 @@ const VoiceInput = ({ setInputValue }) => {
   const { isListening, transcript, startListening, stopListening } = VoiceActivation({ continuous: true });
 
   useEffect(() => {
-    setTextInput(transcript);
-    setInputValue(transcript);
+      setTextInput(transcript);
+      setInputValue(transcript);
   }, [transcript, setInputValue]);
 
   const startStopListening = () => {
-    isListening ? stopListening() : startListening();
+      isListening ? stopListening() : startListening();
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={textInput}
+      <div>
+          <input
+              type="text"
+              value={textInput}
               onChange={(e) => {
                   setTextInput(e.target.value);
                   setInputValue(e.target.value);
               }}
-            
-        placeholder="Speak or type here..."
-      />
-      <button onClick={startStopListening}>
-        {isListening ? 'Stop Listening' : 'Start Listening'}
-      </button>
-    </div>
+
+              placeholder="Speak or type here..."
+          />
+          <button className="vtt-button" onClick={startStopListening}>
+              {isListening ? 'Stop Listening' : 'Start Listening'}
+          </button>
+      </div>
   );
 };
 
