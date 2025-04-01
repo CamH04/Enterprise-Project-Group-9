@@ -69,14 +69,7 @@ const Login = () => {
         <VoiceInput setInputValue={setUsername} />
         
         <label className="nhsuk-label" htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <VoiceInput setInputValue={setPassword} />
 
         <button type="submit" className="nhsuk-button nhsuk-button--secondary">Login</button>
       </form>
