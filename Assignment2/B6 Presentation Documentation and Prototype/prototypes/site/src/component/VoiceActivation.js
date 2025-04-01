@@ -18,7 +18,6 @@ function VoiceActivation() {
         recognition.lang = "en-US"; 
         recognition.continuous = false; 
 
-        // Grammar (optional, can be removed)
         if ("webkitSpeechGrammarList" in window) {
             const grammar = "#JSGF V1.0; grammar punctuation; public <punc> = . | , | ? | ; | : ;";
             const grammarList = new window.webkitSpeechGrammarList();

@@ -23,7 +23,11 @@ const VoiceInput = ({ setInputValue }) => {
       <input
         type="text"
         value={textInput}
-        onChange={(e) => setTextInput(e.target.value)}
+              onChange={(e) => {
+                  setTextInput(e.target.value);
+                  setInputValue(e.target.value);
+              }}
+            
         placeholder="Speak or type here..."
       />
       <button onClick={startStopListening}>
@@ -89,3 +93,6 @@ const Login = () => {
 };
 
 export default Login;
+
+
+

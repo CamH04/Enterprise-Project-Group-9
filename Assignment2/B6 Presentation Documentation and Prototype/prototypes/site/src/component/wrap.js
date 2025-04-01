@@ -1,6 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './wrap.css';
+import './VoiceActivation.css'
+import VoiceActivation from './VoiceActivation';
+
+const VoiceInput = ({ setInputValue }) => {
+    const [textInput, setTextInput] = useState('');
+    const { isListening, transcript, startListening, stopListening } = VoiceActivation({ continuous: true });
+
+    useEffect(() => {
+        setTextInput(transcript);
+        setInputValue(transcript);
+    }, [transcript, setInputValue]);
+
+    const startStopListening = () => {
+        isListening ? stopListening() : startListening();
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                value={textInput}
+                onChange={(e) => {
+                    setTextInput(e.target.value);
+                    setInputValue(e.target.value);
+                }}
+
+                placeholder="Speak or type here..."
+            />
+            <button className="vtt-button" onClick={startStopListening}>
+                {isListening ? 'Stop Listening' : 'Start Listening'}
+            </button>
+        </div>
+    );
+};
 
 const WRAPForm = () => {
   const [wellnessTools, setWellnessTools] = useState('');
@@ -100,62 +134,32 @@ const WRAPForm = () => {
       <form>
         <div>
           <label htmlFor="wellnessTools">Wellness Tools:</label>
-          <textarea
-            id="wellnessTools"
-            placeholder="Describe the tools you use to stay well (e.g., exercise, meditation, talking to a friend)"
-            value={wellnessTools}
-            onChange={(e) => setWellnessTools(e.target.value)}
-            className="nhsuk-input"
-            required
-          />
+          <VoiceInput setInputValue={setWellnessTools} />
+
         </div>
 
         <div>
           <label htmlFor="triggers">Stressors:</label>
-          <textarea
-            id="triggers"
-            placeholder="List the things that may trigger you (e.g., certain situations, events, people)"
-            value={triggers}
-            onChange={(e) => setTriggers(e.target.value)}
-            className="nhsuk-input"
-            required
-          />
+          <VoiceInput setInputValue={setTriggers} />
+
         </div>
 
         <div>
           <label htmlFor="earlyWarningSigns">Early Warning Signs:</label>
-          <textarea
-            id="earlyWarningSigns"
-            placeholder="Describe the signs that indicate you're starting to feel unwell (e.g., irritability, trouble sleeping)"
-            value={earlyWarningSigns}
-            onChange={(e) => setEarlyWarningSigns(e.target.value)}
-            className="nhsuk-input"
-            required
-          />
+          <VoiceInput setInputValue={setEarlyWarningSigns} />
+
         </div>
 
         <div>
           <label htmlFor="whenThingsBreakDown">When Things Are Breaking Down:</label>
-          <textarea
-            id="whenThingsBreakDown"
-            placeholder="What to do when things feel like they're breaking down (e.g., ask for help, take a break)"
-            value={whenThingsBreakDown}
-            onChange={(e) => setWhenThingsBreakDown(e.target.value)}
-            className="nhsuk-input"
-            required
-          />
+          <VoiceInput setInputValue={setWhenThingsBreakDown} />
+
         </div>
 
         <div>
           <label htmlFor="crisisPlan">Wellness Plan:</label>
-          <textarea
-            id="crisisPlan"
-            placeholder="What to do in a crisis situation (e.g., call a support person, go to a safe space)"
-            value={crisisPlan}
-            onChange={(e) => setCrisisPlan(e.target.value)}
-            className="nhsuk-input"
-            required
-          />
+          <VoiceInput setInputValue={setCrisisPlan} />
+
         </div>
 
         <button type="submit" onClick={handleSaveWRAP} className="nhsuk-button">

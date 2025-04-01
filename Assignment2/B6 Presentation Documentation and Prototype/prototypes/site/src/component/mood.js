@@ -1,7 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaSadTear, FaFrown, FaMeh, FaSmile, FaLaugh } from 'react-icons/fa';
 import './mood.css';
+import './VoiceActivation.css'
+import VoiceActivation from './VoiceActivation';
+
+const VoiceInput = ({ setInputValue }) => {
+    const [textInput, setTextInput] = useState('');
+    const { isListening, transcript, startListening, stopListening } = VoiceActivation({ continuous: true });
+
+    useEffect(() => {
+        setTextInput(transcript);
+        setInputValue(transcript);
+    }, [transcript, setInputValue]);
+
+    const startStopListening = () => {
+        isListening ? stopListening() : startListening();
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                value={textInput}
+                onChange={(e) => {
+                    setTextInput(e.target.value);
+                    setInputValue(e.target.value);
+                }}
+
+                placeholder="Speak or type here..."
+            />
+            <button className="vtt-button" onClick={startStopListening}>
+                {isListening ? 'Stop Listening' : 'Start Listening'}
+            </button>
+        </div>
+    );
+};
 
 const MoodTracker = () => {
   const [mood, setMood] = useState('Neutral');
@@ -91,27 +125,14 @@ const MoodTracker = () => {
         </div>
         <div>
           <label htmlFor="keywords">Keywords (separate with commas): </label>
-          <input
-            id="keywords"
-            type="text"
-            placeholder="Enter keywords"
-            value={keywords}
-            onChange={(e) => setKeywords(e.target.value)}
-            className="nhsuk-input"
-            required
-          />
+          <VoiceInput setInputValue={setKeywords} />
+          
         </div>
          <br/>
         <div>
           <label htmlFor="notes">Notes: </label>
-          <textarea
-            id="notes"
-            placeholder="Add your notes here"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            className="nhsuk-input"
-            required
-          />
+          <VoiceInput setInputValue={setNotes} />
+
         </div>
         <button type="submit" className="nhsuk-button">Save Mood</button>
       </form>
