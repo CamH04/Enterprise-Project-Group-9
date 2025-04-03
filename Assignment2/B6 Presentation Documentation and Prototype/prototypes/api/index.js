@@ -224,7 +224,7 @@ app.get('/userWRAP', (req, res) => {
       }
 
       if (!row) {
-        return res.status(404).json({ error: 'No WRAP data found for this user' });
+        return res.status(404).json({ error: 'To See Your Profile Please Fill Out A WRAP plan and a Mood Tracker' });
       }
 
       console.log('WRAP data retrieved:', row);

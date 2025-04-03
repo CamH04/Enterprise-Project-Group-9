@@ -21,8 +21,6 @@ const Profile = () => {
     const fetchProfileAndMoodsAndWrap = async () => {
       try {
         if (!token) throw new Error('No token found in local storage');
-
-        // Fetch Profile
         const profileResponse = await axios.get('http://localhost:5000/profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
