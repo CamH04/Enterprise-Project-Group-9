@@ -19,7 +19,80 @@ db.serialize(() => {
   db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)");
   db.run("CREATE TABLE IF NOT EXISTS user_mood (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, mood TEXT, keywords TEXT, notes TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))");
   db.run(`   CREATE TABLE IF NOT EXISTS user_wrap (     id INTEGER PRIMARY KEY AUTOINCREMENT,     user_id INTEGER,     wellness_tools TEXT,     triggers TEXT,     early_warning_signs TEXT,     when_things_break_down TEXT,     crisis_plan TEXT,     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,     FOREIGN KEY(user_id) REFERENCES users(id)   ) `);
+  db.run(`CREATE TABLE IF NOT EXISTS pets (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER,
+  pet_name TEXT,
+  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(user_id) REFERENCES users(id)
+)`);
+
 });
+//=========================== Pets ==========================
+app.post('/savePetName', (req, res) => {
+  const { petName } = req.body;
+  const token = req.headers['authorization'];
+  if (!token) return res.status(401).json({ error: 'Token required' });
+  const tokenWithoutBearer = token.split(' ')[1];
+  if (!tokenWithoutBearer) return res.status(401).json({ error: 'Token malformed' });
+  jwt.verify(tokenWithoutBearer, JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ error: 'Invalid token, Please Login' });
+    const userId = decoded.id;
+    const stmt = db.prepare("INSERT INTO pets (user_id, pet_name) VALUES (?, ?)");
+    stmt.run(userId, petName, function (err) {
+      if (err) return res.status(500).json({ error: 'Failed to save pet name' });
+      res.status(201).json({ message: 'Pet name saved successfully' });
+    });
+  });
+});
+app.get('/getPetName', (req, res) => {
+  const token = req.headers['authorization'];
+  if (!token) return res.status(401).json({ error: 'Token required' });
+  const tokenWithoutBearer = token.split(' ')[1];
+  if (!tokenWithoutBearer) return res.status(401).json({ error: 'Token malformed' });
+
+  jwt.verify(tokenWithoutBearer, JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ error: 'Invalid token' });
+    const userId = decoded.id;
+    db.get("SELECT pet_name FROM pets WHERE user_id = ? ORDER BY timestamp DESC LIMIT 1", [userId], (err, row) => {
+      if (err) return res.status(500).json({ error: 'Failed to fetch pet name' });
+      if (!row) return res.status(404).json({ error: 'Pet not found' });
+      res.json({ petName: row.pet_name });
+    });
+  });
+});
+app.put('/updatePetName', (req, res) => {
+  const { petName } = req.body;
+  const token = req.headers['authorization'];
+  if (!token) return res.status(401).json({ error: 'Token required' });
+  const tokenWithoutBearer = token.split(' ')[1];
+  if (!tokenWithoutBearer) return res.status(401).json({ error: 'Token malformed' });
+  jwt.verify(tokenWithoutBearer, JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ error: 'Invalid token' });
+    const userId = decoded.id;
+    db.run(
+      `UPDATE pets SET pet_name = ?, timestamp = CURRENT_TIMESTAMP WHERE user_id = ?`,
+      [petName, userId],
+      function (err) {
+        if (err) return res.status(500).json({ error: 'Failed to update pet name' });
+        if (this.changes === 0) {
+          db.run(
+            "INSERT INTO pets (user_id, pet_name) VALUES (?, ?)",
+            [userId, petName],
+            (insertErr) => {
+              if (insertErr) return res.status(500).json({ error: 'Failed to insert pet name' });
+              res.status(200).json({ message: 'Pet name saved successfully' });
+            }
+          );
+        } else {
+          res.status(200).json({ message: 'Pet name updated successfully' });
+        }
+      }
+    );
+  });
+});
+
+
 //=========================== Users ==========================
 app.post('/register', (req, res) => {
   const { username, password } = req.body;

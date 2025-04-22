@@ -40,7 +40,7 @@ const RecommendedArticles = () => {
             throw new Error('Failed to fetch recommended articles');
           }
         } else {
-          throw new Error('No moods found for the user');
+          throw new Error('No moods found for the user, Why not fill out the mood tracker to start getting some recommendations');
         }
       } catch (error) {
         console.error('Error fetching articles:', error);

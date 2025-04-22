@@ -52,7 +52,7 @@ const Navbar = () => {
         </div>
         <Link to="/" className="nhsuk-navbar__link">Home</Link>
         <Link to="/mood-tracker" className="nhsuk-navbar__link">Mood Tracker</Link>
-        <Link to="/wrap" className="nhsuk-navbar__link">Action Plan</Link>
+        <Link to="/wrap" className="nhsuk-navbar__link">WRAP Plan</Link>
         <Link to="/game" className="nhsuk-navbar__link">Game</Link>
         <Link to="/recommended-recources" className="nhsuk-navbar__link">Recommended Recources</Link>
         <AudioPlayer />
