@@ -1,9 +1,10 @@
 # Notes About Prototype Product
-- Note: for full website functionailty run api,game server as well as the website
-
 This is a react website with 2 express scripts acting as the apps backend (one being the api script (index.js) and the game server (server.js) to be able to locally host the game)
 
 # Run App
+
+prerequisite installs for run.sh: node , npm
+
 run: start.sh
 (Note)Linux: Make sure to chmod the file (run: chmod +x run.sh)
 
