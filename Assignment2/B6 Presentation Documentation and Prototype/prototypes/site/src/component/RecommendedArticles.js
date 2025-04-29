@@ -97,6 +97,12 @@ const RecommendedArticles = () => {
           ))}
         </div>
       )}
+      <h2>Recommended Videos</h2>
+      <a href="https://www.nhs.uk/live-well/exercise/pilates-and-yoga/bedtime-meditation/" target="_blank"><h3>Link: NHS Bedtime Meditation Video</h3></a>
+      <iframe src="https://www.nhs.uk/live-well/exercise/pilates-and-yoga/bedtime-meditation/" width="800" height="600">
+  Your browser does not support iframes.
+</iframe>
+
     </div>
   );
 };

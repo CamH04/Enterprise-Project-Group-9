@@ -47,6 +47,7 @@ const Game = () => {
   };
   return (
     <div>
+     <UnityWebGL />
       <div style={{ marginTop: 20 }}>
         {savedName ? (
           <p>Your pet's name is: <strong>{savedName}</strong></p>
@@ -64,7 +65,6 @@ const Game = () => {
         </button>
         <p>{message}</p>
       </div>
-       <UnityWebGL />
     </div>
   );
 };
