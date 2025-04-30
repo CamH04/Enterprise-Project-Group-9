@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import TextToSpeech from './TextToSpeech';
+import MedAudio from './static/g_med.mp3';
 
 import './recc.css';
 
@@ -100,9 +101,14 @@ const RecommendedArticles = () => {
       <h2>Recommended Videos</h2>
       <a href="https://www.nhs.uk/live-well/exercise/pilates-and-yoga/bedtime-meditation/" target="_blank"><h3>Link: NHS Bedtime Meditation Video</h3></a>
       <iframe src="https://www.nhs.uk/live-well/exercise/pilates-and-yoga/bedtime-meditation/" width="800" height="600">
-  Your browser does not support iframes.
-</iframe>
-
+        Your browser does not support this feature, please open in a new window.
+      </iframe>
+      <h2>Recommended Audio</h2>
+      <h3>Meditation Walkthrough</h3>
+       <audio controls autoplay>
+        <source src={MedAudio} type="audio/mpeg"></source>
+      Your browser does not support the audio element.
+      </audio>
     </div>
   );
 };
