@@ -8,5 +8,7 @@ prerequisite installs for run.sh: node , npm
 run: start.sh
 (Note)Linux: Make sure to chmod the file (run: chmod +x run.sh)
 
+To run the site run the run.sh script
+
 ## APi Docs
 api docs are veiwable at localhost:3000/dev/api-docs when site is running

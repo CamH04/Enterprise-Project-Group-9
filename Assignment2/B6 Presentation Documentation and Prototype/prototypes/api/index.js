@@ -19,15 +19,59 @@ db.serialize(() => {
   db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)");
   db.run("CREATE TABLE IF NOT EXISTS user_mood (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, mood TEXT, keywords TEXT, notes TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))");
   db.run(`   CREATE TABLE IF NOT EXISTS user_wrap (     id INTEGER PRIMARY KEY AUTOINCREMENT,     user_id INTEGER,     wellness_tools TEXT,     triggers TEXT,     early_warning_signs TEXT,     when_things_break_down TEXT,     crisis_plan TEXT,     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,     FOREIGN KEY(user_id) REFERENCES users(id)   ) `);
-  db.run(`CREATE TABLE IF NOT EXISTS pets (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id INTEGER,
-  pet_name TEXT,
-  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY(user_id) REFERENCES users(id)
-)`);
-
+  db.run(`CREATE TABLE IF NOT EXISTS pets ( id INTEGER PRIMARY KEY AUTOINCREMENT,user_id INTEGER,pet_name TEXT,timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(user_id) REFERENCES users(id))`);
+  db.run(`CREATE TABLE IF NOT EXISTS user_cosmetics (id INTEGER PRIMARY KEY AUTOINCREMENT,user_id INTEGER,particle_effect TEXT,earned_at DATETIME DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(user_id) REFERENCES users(id))`);
+  db.run(`CREATE TABLE IF NOT EXISTS login_rewards (user_id INTEGER PRIMARY KEY,last_login DATETIME,FOREIGN KEY(user_id) REFERENCES users(id))`);
 });
+//=========================== Cosmetics ==========================
+app.post('/daily-login', (req, res) => { // have youloggedd in in 24 hrs
+  const token = req.headers['authorization'];
+  if (!token) return res.status(401).json({ error: 'Token required' });
+  const tokenWithoutBearer = token.split(' ')[1];
+  jwt.verify(tokenWithoutBearer, JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ error: 'Invalid token' });
+    const userId = decoded.id;
+    db.get('SELECT last_login FROM login_rewards WHERE user_id = ?', [userId], (err, row) => {
+      const now = new Date();
+      const nowISO = now.toISOString();
+      if (err) return res.status(500).json({ error: 'Database error' });
+      const giveReward = () => {
+        const cosmetic = `particle_${Math.floor(Math.random() * 10)}`; // particle ID
+        db.run("INSERT INTO user_cosmetics (user_id, particle_effect) VALUES (?, ?)", [userId, cosmetic]);
+        db.run("REPLACE INTO login_rewards (user_id, last_login) VALUES (?, ?)", [userId, nowISO]);
+        res.status(200).json({ message: 'Reward granted', cosmetic });
+      };
+      if (!row) {
+        giveReward();
+      } else {
+        const lastLogin = new Date(row.last_login);
+        const diffHours = (now - lastLogin) / (1000 * 60 * 60);
+
+        if (diffHours >= 24) {
+          giveReward();
+        } else {
+          res.status(200).json({ message: 'Already claimed today' });
+        }
+      }
+    });
+  });
+});
+app.get('/my-cosmetics', (req, res) => {
+  const token = req.headers['authorization'];
+  if (!token) return res.status(401).json({ error: 'Token required' });
+  const tokenWithoutBearer = token.split(' ')[1];
+  jwt.verify(tokenWithoutBearer, JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ error: 'Invalid token' });
+    const userId = decoded.id;
+    db.all('SELECT particle_effect, earned_at FROM user_cosmetics WHERE user_id = ?', [userId], (err, rows) => {
+      if (err) return res.status(500).json({ error: 'Failed to retrieve cosmetics' });
+      res.json({ cosmetics: rows });
+    });
+  });
+});
+
+
+
 //=========================== Pets ==========================
 app.post('/savePetName', (req, res) => {
   const { petName } = req.body;
