@@ -1,57 +1,125 @@
-.NAV_LOGO{
-  padding-right:20px;
-}
 .nhsuk-navbar--sticky {
   position: sticky;
   top: 0;
   z-index: 1001;
   background-color: white;
-  border-bottom: 1px solid #b7b7b7;
-  padding: 10px 20px;
+  border-bottom: 2px solid #005bbb;
+  padding: 11px 22px;
+  height: 70px;
 }
+
 .nhsuk-navbar__menu {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.nhsuk-navbar__left {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.NAV_LOGO svg {
+  height: 100%;
+  display: block;
+}
+
+.profile-button-container {
+  width: 60px;
+  height: 45px;
+  background-color: #005bbb;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  margin-top: 3px;
+  margin-bottom: 4px;
+  margin-left: 11px;
+}
+
+.profile-button-inner {
+  width: 34px;
+  height: 34px;
+  background-color: #f1f1f1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-button-inner i {
+  color: #333;
+  font-size: 15px;
+}
+
+.nhsuk-navbar__center {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 21px;
+}
+
+.nhsuk-navbar__right {
+  display: flex;
   align-items: center;
 }
 
 .nhsuk-navbar__link {
   color: #005bbb;
   text-decoration: none;
-  font-size: 16px;
-  padding: 10px;
-  margin-right: 20px;
-  opacity: 1;
-  transition: color 0.3s ease;
+  font-size: 17px;
+  font-weight: 500;
+  padding: 6px 7px;
+  border-bottom: 1.4px solid transparent;
+  transition: all 0.2s ease;
 }
 
-/* Style the dropdown button */
-.nhsuk-navbar__link--dropdown {
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 10px;
-  font-size: 16px;
+.nhsuk-navbar__link:hover {
+  border-bottom: 1.4px solid #005bbb;
 }
 
-/* Style for the dropdown menu */
 .nhsuk-navbar__dropdown-menu {
   position: absolute;
   top: 100%;
   background-color: white;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  min-width: 150px;
-  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 105px;
+  padding: 6px 0;
+  z-index: 999;
+  margin-left: -11.5px;
+  border: 2px solid #005bbb;
+  border-radius: 3px;
 }
 
-/* Style for dropdown items */
+
 .nhsuk-navbar__dropdown-item {
   display: block;
-  padding: 10px 20px;
-  color: black;
+  padding: 6px 12px;
+  color: #005bbb;
   text-decoration: none;
+  border: 1px solid #005bbb;
+  margin: 2px 8px;
+  border-radius: 2px;
+  background-color: white;
+  transition: background-color 0.3s ease;
 }
 
 .nhsuk-navbar__dropdown-item:hover {
   background-color: #f4f4f4;
+}
+
+.NAV_LOGO {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo-profile {
+  display: flex;
+  align-items: center;
+  gap: 11px;
 }

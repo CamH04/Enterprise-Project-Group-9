@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UnityWebGL from './UnityWebGL.js';
+import "./game.css";
 
 const Game = () => {
   const [petName, setPetName] = useState('');

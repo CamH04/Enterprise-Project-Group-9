@@ -1,3 +1,16 @@
-body {
-    /*background: url('background-image.jpg') no-repeat center center fixed;*/
-}
+input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid #84bbee;
+    border-radius: 12px;
+    background-color: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 1rem;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #005eb8;
+    box-shadow: 0 0 0 3px rgba(0, 94, 184, 0.2);
+  }

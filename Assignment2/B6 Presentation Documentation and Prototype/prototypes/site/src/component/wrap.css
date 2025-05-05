@@ -1,37 +1,60 @@
-.nhsuk-container {
-  margin: 0 auto;
-  padding: 20px;
-  background: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+:root {
+  --text: #0b1015;
+  --background: #f1f8ff;
+  --primary: #005EB8;
+  --secondary: #84bbee;
+  --accent: #3f9df5;
+  --card-radius: 24px;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
 }
 
-h2 , h3 {
-  color: #005eb8;
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.nhsuk-container {
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+h2, h3 {
+  color: var(--primary);
   text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
 }
 
 label {
   display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #212b32;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
 }
 
 .nhsuk-input {
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 2px solid #aeb7bd;
-  border-radius: 4px;
-  background: white;
-  transition: border 0.3s ease-in-out;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--secondary);
+  border-radius: 16px;
+  background-color: white;
+  transition: border 0.2s ease;
 }
 
 .nhsuk-input:focus {
+  border-color: var(--primary);
   outline: none;
-  border-color: #005eb8;
-  box-shadow: 0 0 5px rgba(0, 94, 184, 0.5);
+  box-shadow: 0 0 0 3px rgba(0, 94, 184, 0.2);
 }
 
 textarea.nhsuk-input {
@@ -40,35 +63,43 @@ textarea.nhsuk-input {
 }
 
 .nhsuk-button {
-  display: inline-block;
-  width: 100%;
-  padding: 10px;
-  font-size: 18px;
-  font-weight: bold;
+  background-color: var(--primary);
   color: white;
-  background-color: #005eb8;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
   border: none;
-  border-radius: 4px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.3s ease-in-out;
+  box-shadow: 0 6px 0 var(--secondary);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+
+  margin-top: 1.5rem;
+  display: inline-block;
+  min-width: 150px;
+  text-align: center;
 }
 
 .nhsuk-button:hover {
-  background-color: #003b75;
+  background-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.error,
+.success {
+  padding: 1rem;
+  border-radius: 12px;
+  font-weight: 500;
 }
 
 .error {
+  background-color: #fae6e6;
   color: #d4351c;
-  background: #f3e3e3;
-  padding: 10px;
-  border-left: 4px solid #d4351c;
-  margin-bottom: 15px;
+  border-left: 5px solid #d4351c;
 }
 
 .success {
+  background-color: #e6f4ea;
   color: #007f3b;
-  background: #eaf4ea;
-  padding: 10px;
-  border-left: 4px solid #007f3b;
-  margin-bottom: 15px;
+  border-left: 5px solid #007f3b;
 }

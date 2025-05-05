@@ -1,52 +1,86 @@
-body {
-    background-color: #d4e8e6;
-    font-family: Arial, sans-serif;
+:root {
+    --text: #0b1015;
+    --background: #f1f8ff;
+    --primary: #005EB8;
+    --secondary: #84bbee;
+    --accent: #3f9df5;
+    --card-radius: 24px;
+    --shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+  }
+
+  body, html {
     margin: 0;
     padding: 0;
-    text-align: center;
-}
+    height: 100%;
+    background-color: var(--background);
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--text);
+  }
 
-.nhsuk-container {
+  .container-big {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+  }
+
+  .nhsuk-container.container {
+    background: #ffffff;
+    padding: 3rem 2rem;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow);
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-top: 10%;
-}
+    gap: 2rem;
+  }
 
-.container {
-    max-width: 900px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.header {
-    margin-bottom: 10px;
-}
-
-.logo {
-    width: 50px;
-    height: 50px;
-}
-
-.title {
-    font-size: 28px;
-    font-weight: bold;
-    color: #004d40;
-    margin: 20px 0;
-}
-
-.buttons {
+  .logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 94, 184, 0.15);
+    background-color: var(--secondary);
     display: flex;
-    gap: 15px;
     justify-content: center;
-    margin-top: 20px;
-}
+    align-items: center;
+  }
 
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1.6;
+    margin: 0;
+  }
 
-.nhsuk-button:hover {
-    background-color: #005a2b;
-}
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.2rem;
+  }
+
+  .buttons button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 6px 0 var(--secondary);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .buttons button:hover {
+    background-color: var(--accent);
+    transform: translateY(-2px);
+  }

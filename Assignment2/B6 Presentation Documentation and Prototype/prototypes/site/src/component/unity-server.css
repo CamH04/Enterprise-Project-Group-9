@@ -1,6 +1,10 @@
 .game-v{
     display: flex;
     justify-content: center;
+    padding-right: 242px;
+    height:800px;
+    width:1200px;
+    background:none;
 }
 .nhsuk-container {
 
