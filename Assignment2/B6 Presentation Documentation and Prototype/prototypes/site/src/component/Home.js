@@ -2,6 +2,7 @@ import React from 'react';
 import "./Home.css";
 import Logo from './static/logo_img.png';
 import Button from './Button'
+import HomeImage from './static/home.jpg';
 
 const handleClickLogin = () => {
   window.location.href = "/login";
@@ -13,6 +14,8 @@ const handleClickRegister = () => {
 const Home = () => {
   return (
       <div className="container-big">
+        <img src={HomeImage} alt="Background" className="background-image" />
+
         <div className="nhsuk-container container">
           <div className="header">
             <img src={Logo} alt="Logo" className="logo" />

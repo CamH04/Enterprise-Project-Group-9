@@ -11,33 +11,10 @@
   body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100vh;
     background-color: var(--background);
     font-family: 'Segoe UI', sans-serif;
     color: var(--text);
-  }
-
-  .container-big {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background-color: var(--background);
-  }
-
-  .nhsuk-container.container {
-    background: #ffffff;
-    padding: 3rem 2rem;
-    border-radius: var(--card-radius);
-    box-shadow: var(--shadow);
-    max-width: 420px;
-    width: 100%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
   }
 
   .logo {
@@ -83,4 +60,48 @@
   .buttons button:hover {
     background-color: var(--accent);
     transform: translateY(-2px);
+  }
+
+  .container-big {
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100vh;
+    max-height: 900px;
+    min-height: 900px;
+    margin: 0 auto;
+  }
+
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: var(--primary);
+    mix-blend-mode: multiply;
+    opacity: 0.8;
+    z-index: 0;
+    border-radius: 12px;
+  }
+
+  .nhsuk-container.container {
+    position: relative;
+    z-index: 1;
+    background-color: white;
+    padding: 3rem 2rem;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow);
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
   }
